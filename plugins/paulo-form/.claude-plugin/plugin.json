@@ -1,0 +1,10 @@
+{
+  "name": "paulo-form",
+  "description": "Insere o botão/link do formulário de captação de leads do paulo.ia em qualquer projeto, abrindo o formulário num modal por cima da página.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Paulo Aguiar",
+    "url": "https://www.instagram.com/paulo.ia"
+  },
+  "keywords": ["lead", "formulario", "captura", "paulo.ia", "contato"]
+}
