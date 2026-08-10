@@ -82,8 +82,6 @@ da pasta (`site-cafe-aurora`, `landing-mentoria`, `blog-paulo`).
 Use **o mesmo `data-source` para todos os botões do mesmo site** — a menos que
 o usuário queira distinguir pontos de captação; nesse caso, sufixe o local
 (`landing-mentoria-rodape`, `landing-mentoria-hero`).
-Nunca comece o valor com `teste`: esse prefixo é reservado e faz o cadastro ser
-tratado como teste e sumir dos relatórios.
 
 ### Atributos opcionais
 
