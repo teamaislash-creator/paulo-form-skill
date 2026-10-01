@@ -10,7 +10,9 @@ description: >-
   captar contatos nessa página" ou algo equivalente — inclusive quando o
   usuário não citar o nome do Paulo. O formulário NÃO é recriado no site:
   entra apenas um link/botão que abre o formulário oficial num modal por cima
-  da página.
+  da página. Pedidos para BLOQUEAR/TRAVAR o conteúdo até a pessoa deixar o
+  e-mail (paywall, portão ou muro de e-mail, email gate) são da skill
+  paulo-gate, não desta.
 ---
 
 # Formulário de captação de leads do paulo.ia
@@ -57,6 +59,11 @@ Inclua este script **uma vez** por página/app, imediatamente antes de
 por `embed.js` antes de inserir. Um único loader atende quantos botões
 existirem na página.
 
+**Convivência com o portão de e-mail (skill paulo-gate):** se a página já tem
+o `embed.js` — inclusive no `<head>`, com `async` e atributos
+`data-paulo-gate` —, **não adicione outro** nem um `<Script>`: o mesmo script
+atende o modal. Deixe a tag como está e passe direto ao Passo 2.
+
 ## Passo 2 — Inserir o gatilho onde o usuário pediu
 
 Coloque um link com o atributo `data-paulo-form`, usando **o design do próprio
@@ -82,8 +89,6 @@ da pasta (`site-cafe-aurora`, `landing-mentoria`, `blog-paulo`).
 Use **o mesmo `data-source` para todos os botões do mesmo site** — a menos que
 o usuário queira distinguir pontos de captação; nesse caso, sufixe o local
 (`landing-mentoria-rodape`, `landing-mentoria-hero`).
-Nunca comece o valor com `teste`: esse prefixo é reservado e faz o cadastro ser
-tratado como teste e sumir dos relatórios.
 
 ### Atributos opcionais
 
@@ -154,7 +159,7 @@ Se o modal não abrir, quase sempre é o script faltando/duplicado ou o
 - **NUNCA** chame a API de gravação diretamente (ex.: `POST /api/lead`). O único
   ponto de integração é o link com `data-paulo-form` + o `embed.js`.
 - **SEMPRE** preencha `data-source` com um identificador do projeto em
-  kebab-case, sem acentos e sem começar com `teste`.
+  kebab-case e sem acentos.
 - **Adapte o estilo do botão ao design do site anfitrião** — use as classes e
   cores do próprio projeto. Não imponha uma paleta.
 - **Mantenha o `href` sempre preenchido** (`https://paulo-form.vercel.app/`),
