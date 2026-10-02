@@ -1,7 +1,7 @@
 {
   "name": "paulo-form",
   "description": "Captação de leads do paulo.ia em qualquer projeto: insere o botão/link que abre o formulário num modal por cima da página (skill paulo-form) e o portão de e-mail que trava o conteúdo até a pessoa deixar o e-mail (skill paulo-gate).",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": {
     "name": "Paulo Aguiar",
     "url": "https://www.instagram.com/paulo.ia"

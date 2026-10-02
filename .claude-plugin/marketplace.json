@@ -10,7 +10,7 @@
       "name": "paulo-form",
       "source": "./plugins/paulo-form",
       "description": "Captação de leads do Paulo Aguiar (paulo.ia) em qualquer projeto: botão/link que abre o formulário num modal por cima da página e portão de e-mail que trava o conteúdo do site até a pessoa deixar o e-mail.",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "author": {
         "name": "Paulo Aguiar"
       },

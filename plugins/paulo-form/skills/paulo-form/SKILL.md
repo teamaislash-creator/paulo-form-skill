@@ -17,6 +17,12 @@ description: >-
 
 # Formulário de captação de leads do paulo.ia
 
+O Paulo Aguiar (@paulo.ia) cria conteúdo sobre **Inteligência Artificial**:
+os conteúdos, cursos, mentoria e consultoria dele são sobre IA. O formulário
+diz isso (ex.: "Receba meus conteúdos de IA") — então a copy do botão/CTA
+deve deixar claro que é do Paulo/sobre IA, e **nunca prometer o assunto do
+site anfitrião** (ex.: num site de receitas, não escreva "receba receitas").
+
 O Paulo tem **um único** formulário de captação, hospedado por ele mesmo em
 `https://paulo-form.vercel.app` (serviço próprio dele, não é terceiro).
 O que você insere no projeto é **apenas um gatilho** (link ou botão): ao ser
@@ -86,15 +92,19 @@ interceptado e o próprio modal já cuida de `aria-modal`, foco e ESC.
 Identificador **do projeto/site**, em kebab-case, sem acentos: é assim que o
 Paulo vê de onde veio o lead. Derive do **nome do produto/site**, não do nome
 da pasta (`site-cafe-aurora`, `landing-mentoria`, `blog-paulo`).
-Use **o mesmo `data-source` para todos os botões do mesmo site** — a menos que
+Site com várias páginas HTML sem template compartilhado (ex.: "no rodapé de
+todas as páginas"): repita o gatilho (e o `embed.js`, uma vez) em CADA
+arquivo. Use **o mesmo `data-source` para todos os botões do mesmo site** — a menos que
 o usuário queira distinguir pontos de captação; nesse caso, sufixe o local
 (`landing-mentoria-rodape`, `landing-mentoria-hero`).
 
 ### Atributos opcionais
 
-- `data-ctx="consultoria"` — ajusta título/subtítulo/botão do formulário.
-  Valores: `curso` e `consultoria`. Para captação genérica/newsletter,
-  **omita o atributo** (o padrão já é o texto geral).
+- `data-ctx="consultoria"` — ajusta título/subtítulo/botão do formulário
+  **e já pré-seleciona o interesse correspondente** (curso → Curso,
+  consultoria → Consultoria). Valores: `curso` e `consultoria`. Para
+  captação genérica/newsletter, **omita o atributo** (o padrão já é o texto
+  geral).
 - `data-interesse="Curso"` — pré-seleciona um interesse. Valores válidos,
   exatamente assim: `Curso`, `Consultoria`, `Mentoria`, `Palestra / Evento`,
   `Parceria`, `Só quero acompanhar os conteúdos`.
@@ -103,7 +113,7 @@ o usuário queira distinguir pontos de captação; nesse caso, sufixe o local
 mesmo sem JavaScript. Os parâmetros aceitos são `source`, `ctx` e `interesse`:
 
 ```html
-<a href="https://paulo-form.vercel.app/?source=landing-consultoria&ctx=consultoria"
+<a href="https://paulo-form.vercel.app/?source=landing-consultoria&ctx=consultoria&interesse=Consultoria"
    class="btn btn-primario"
    data-paulo-form
    data-ctx="consultoria"

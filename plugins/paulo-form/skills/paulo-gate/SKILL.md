@@ -275,7 +275,8 @@ Os mesmos atributos funcionam no elemento `data-paulo-gate` de uma página
 
 Identificador **do projeto/site**, em kebab-case, sem acentos: é assim que o
 Paulo vê de onde veio o lead. Derive do **nome do produto/site**, não do nome
-da pasta (`site-cafe-aurora`, `landing-mentoria`, `blog-paulo`). Use **o mesmo
+da pasta, sem prefixo obrigatório (`cafe-aurora`, `landing-mentoria`,
+`blog-paulo`). Use **o mesmo
 valor no site todo** — inclusive o mesmo dos botões do formulário, se o site
 já tiver; o painel do Paulo já separa o que veio do portão e do formulário.
 
@@ -289,15 +290,24 @@ o cartão, e ele volta na próxima sessão.
 ## Portão só em algumas páginas
 
 A configuração também pode ir num elemento da página, que vale só para ela e
-sobrescreve os atributos da tag:
+sobrescreve, um a um, os atributos da tag (os que você não puser no elemento
+continuam valendo da tag — não precisa repetir o `data-source`). Ponha o
+elemento em qualquer lugar do `<body>` daquela página (por exemplo, no topo
+do conteúdo); ele não aparece (`hidden`).
 
 ```html
 <!-- liga o portão nesta página -->
 <div data-paulo-gate data-source="nome-do-site" hidden></div>
 
+<!-- só troca o texto do portão nesta página (site todo travado) -->
+<div data-paulo-gate data-titulo="Baixe o guia de prompts" data-botao="Quero o guia" hidden></div>
+
 <!-- desliga o portão nesta página (num site todo travado) -->
 <div data-paulo-gate="off" hidden></div>
 ```
+
+Em JSX (React/Next): `<div data-paulo-gate="" data-titulo="..." hidden />` e
+`<div data-paulo-gate="off" hidden />`.
 
 ### Sites com páginas separadas (HTML puro, WordPress, templates do servidor)
 
@@ -312,7 +322,14 @@ sobrescreve os atributos da tag:
 
 ### Next.js e SPAs (Vite/React/Vue)
 
-A navegação acontece sem recarregar a página, então avise o `embed.js` a cada
+**Site INTEIRO travado numa SPA, com o mesmo texto em todas as rotas:**
+snippet + tag no `<head>` (index.html ou layout raiz) bastam — não precisa do
+componente abaixo. Ele É necessário quando alguma rota tem elemento
+`data-paulo-gate` próprio (portão só em algumas rotas, rota com `"off"`, ou
+rota com TEXTO diferente): a cada troca de rota, `portao()` relê a página e
+abre, fecha ou troca o texto do cartão.
+
+Com portão só em algumas rotas, a navegação acontece sem recarregar a página, então avise o `embed.js` a cada
 troca de rota chamando `window.PauloForm.portao()` — essa função relê a
 configuração da página atual e abre o portão se for preciso. Coloque **um**
 componente no layout raiz (dentro do `<body>`, ou junto do roteador):
@@ -385,11 +402,20 @@ site:
 }
 ```
 
-- Defina só as que precisar; as outras ficam no padrão.
-- Se o site tem identidade visual clara, ajuste pelo menos o botão
-  (`--paulo-gate-botao`, `--paulo-gate-botao-texto`) e o foco
-  (`--paulo-gate-destaque`) para a cor de destaque do site, com contraste
-  legível. Mexa no resto só se o usuário pedir ou se o cartão destoar.
+- O cartão padrão é **escuro** (azul-marinho, título branco, texto azul-acinzentado,
+  botão em gradiente azul-claro com texto escuro) e funciona sobre qualquer site.
+- Defina só as que precisar; as outras ficam no padrão. Na instalação, ajuste
+  **só** estas três, com a cor principal de botão/destaque do site (sólida; se
+  o site usa gradiente nos botões, pode usar o mesmo gradiente):
+  - `--paulo-gate-botao`: a cor do botão principal do site;
+  - `--paulo-gate-botao-texto`: a cor do texto do botão do site — se der
+    contraste menor que 4,5:1 com o fundo do botão, use a variação mais escura
+    da cor do site (ou texto escuro sobre cor clara);
+  - `--paulo-gate-destaque` (anel de foco): a MESMA cor do botão, ou uma
+    variação mais clara dela (o anel aparece sobre o cartão escuro).
+- Fundo, textos, fonte, véu e raio do cartão: **não mexa**, a não ser que o
+  usuário peça. Se o usuário pedir "a cor do botão igual à do site", mude o
+  botão e o anel de foco juntos.
 - Prefira valores literais (hex, rgb, nome da fonte). Se usar `var(--algo)`
   do projeto, essa variável precisa existir no próprio `:root` — variável
   definida só no `<body>` (comum com `next/font`) não vale ali.
@@ -407,14 +433,19 @@ site:
 1. **No código:** busque `embed.js` → exatamente uma tag por página (ou uma
    no layout); busque `pauloform_gate` → o snippet está no `<head>`.
 2. **No HTML servido** (não só no código-fonte), com o servidor de
-   desenvolvimento rodando:
+   desenvolvimento rodando. HTML puro: sirva a pasta com qualquer servidor
+   estático (`npx serve`, `python -m http.server`) — abrir por `file://`
+   NÃO serve para testar o portão.
    - `curl -s http://localhost:PORTA/ | grep -c pauloform_gate` → 1 ou mais
-     (o snippet saiu inline);
-   - `curl -s http://localhost:PORTA/ | grep -o '<script[^>]*embed.js[^>]*>'`
-     → a tag aparece com `data-paulo-gate` (se o portão foi ligado por
-     elemento, confira o elemento `data-paulo-gate` na página travada).
-   - No Windows PowerShell, use `curl.exe` no lugar de `curl` e
-     `Select-String` no lugar de `grep`.
+     (o snippet saiu inline; no Next.js o número varia por página, porque o
+     snippet também aparece no payload do React — tudo bem);
+   - `curl -s http://localhost:PORTA/ | tr '\n' ' ' | grep -o '<script[^>]*embed.js[^>]*>'`
+     → a tag aparece com `data-paulo-gate` (o `tr` junta as linhas: a tag
+     costuma ocupar várias). Se o portão foi ligado por elemento, confira o
+     elemento `data-paulo-gate` na página travada.
+   - No Windows PowerShell: `((curl.exe -s http://localhost:PORTA/) -join ' ') -match '<script[^>]*embed\.js[^>]*>'; $Matches[0]`
+   - É normal o servidor de desenvolvimento (Vite, Next) inserir os scripts
+     dele ANTES do snippet no HTML servido. Não reordene.
 3. **No navegador**, numa aba anônima (ou depois de resetar, item 5): o site
    aparece borrado e escurecido, com o cartão de e-mail na frente e a rolagem
    travada. No console:
