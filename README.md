@@ -134,26 +134,20 @@ naquele site. É captação de lead, não proteção de conteúdo pago.
 
 ## Mensagem pronta para o grupo da equipe
 
-> **Time, dá pra plugar a captação de leads do Paulo em qualquer projeto só
-> pedindo pro agente — agora com duas opções:**
+> **Novidade na captação do Paulo:** além do botão do formulário, agora dá pra
+> **travar o conteúdo de qualquer site até a pessoa deixar o e-mail** (o site
+> fica borrado atrás de um cartão). É só pedir pro agente: *"coloca o
+> paywall"* ou *"trava o site com captura de email"*. Os e-mails caem no mesmo
+> painel do Paulo, marcados como "portão".
 >
-> 1. **Botão do formulário:** um botão com o design do projeto que abre o form
->    num modal. Ex.: *"coloca o formulário do Paulo no rodapé"*.
-> 2. **Portão de e-mail:** trava o conteúdo (site borrado atrás de um cartão)
->    até a pessoa deixar o e-mail. Ex.: *"coloca o paywall de email no site"*
->    ou *"bloqueia essa página até a pessoa deixar o email"*.
+> **Já tem o plugin?** Peçam pro agente rodar
+> `claude plugin marketplace update paulo-ia` e
+> `claude plugin update paulo-form@paulo-ia`, e abram uma sessão nova.
 >
-> Os dois podem ficar no mesmo site, usando um script só.
+> **Ainda não tem?** Peçam pro agente rodar
+> `claude plugin marketplace add teamaislash-creator/paulo-form-skill` e
+> `claude plugin install paulo-form@paulo-ia`.
 >
-> **Claude Code:** rodem estes dois comandos dentro do Claude Code —
-> `/plugin marketplace add teamaislash-creator/paulo-form-skill`
-> e depois `/plugin install paulo-form@paulo-ia` (se pedir, `/reload-plugins`).
-> Quem já tinha instalado: no terminal, `claude plugin marketplace update paulo-ia`
-> e `claude plugin update paulo-form@paulo-ia`, depois reiniciem o Claude Code.
->
-> **Codex CLI:** clonem `https://github.com/teamaislash-creator/paulo-form-skill`
-> e copiem as pastas `skills/paulo-form` e `skills/paulo-gate` para
-> `~/.codex/skills/`.
->
-> Lembrem de deixar o agente escolher um `data-source` que identifique o
-> projeto (ex.: `landing-curso-ia`) pra gente saber de onde vêm os leads.
+> Os textos do portão já vêm prontos e genéricos; pra adaptar a uma página, é
+> só pedir ("muda o título do portão pra ..."). Formulário e portão usam um
+> script só e podem ficar no mesmo site.
